@@ -1,29 +1,21 @@
-import axios from "axios";
-
-const API_URL = "http://localhost:5000/api/fees";
-
-const getHeader = () => ({
-  headers: {
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
-  },
-});
+import apiClient from "./apiClient";
 
 export const getFees = async () => {
-  const response = await axios.get(`${API_URL}/`, getHeader());
+  const response = await apiClient.get("/fees/");
   return response.data;
 };
 
 export const getTenantFees = async (tenantId) => {
-  const response = await axios.get(`${API_URL}/tenant/${tenantId}`, getHeader());
+  const response = await apiClient.get(`/fees/tenant/${tenantId}`);
   return response.data;
 };
 
 export const getMyFees = async () => {
-  const response = await axios.get(`${API_URL}/my`, getHeader());
+  const response = await apiClient.get("/fees/my");
   return response.data;
 };
 
 export const markFeeAsPaid = async (paymentData) => {
-  const response = await axios.post(`${API_URL}/mark-paid`, paymentData, getHeader());
+  const response = await apiClient.post("/fees/mark-paid", paymentData);
   return response.data;
 };
